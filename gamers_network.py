@@ -99,8 +99,8 @@ game_str = 'games'
 def create_data_structure(string_input):
     network = {}
     string_input = string_input.split(".")
-    conn_splitter = 'is connected to'
-    game_splitter = 'likes to play'
+    conn_splitter = 'is connected to '
+    game_splitter = 'likes to play '
     for sub_string in string_input:
         # get user name
         name = sub_string[:sub_string.find(" ")]
@@ -110,18 +110,11 @@ def create_data_structure(string_input):
         if conn_splitter in sub_string:
             # friends with ...
             connections = sub_string.split(conn_splitter)[1]
-            # remove white space
-            network[name][conn_str] = []
-            for conn in connections.split(","):
-                if conn[0] == ' ': conn = conn[1:]
-                network[name][conn_str].append(conn)
+            network[name][conn_str] = connections.split(", ")
         if game_splitter in sub_string:
             # likes ...
             games = sub_string.split(game_splitter)[1]
-            network[name][game_str] = []
-            for game in games.split(","):
-                if game[0] == ' ': game = game[1:]
-                network[name][game_str].append(game)
+            network[name][game_str] = games.split(", ")
     return network
 
 # ----------------------------------------------------------------------------- # 
@@ -331,8 +324,8 @@ def get_common_games(network, user_A, user_B):
             output.append(game)
     return output
 
-#net = create_data_structure(example_input)
-#print net
+net = create_data_structure(example_input)
+print net
 #print get_connections(net, "Debra")
 #print get_connections(net, "Mercedes")
 #print get_games_liked(net, "John")
